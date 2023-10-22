@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import NavBar from './NavBar';
+import Welcome from './Welcome';
+import Footer from './Footer';
+import Fantasy from './Fantasy';
+import { Container } from 'react-bootstrap';
+import History from './History';
+import Horror from './Horror';
+import Romance from './Romance';
+import Scifi from './Scifi';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <NavBar/>
+    <Welcome/>
+    <Container>
+      <h2 className='mt-5'> Latest Releases </h2>
+      <hr/>
+      <Fantasy/>
+      <History/>
+      <Horror/>
+      <Romance/>
+      <Scifi/>
+    </Container>
+    <Footer/>
+      </>
   );
-}
-
+};
 export default App;
