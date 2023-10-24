@@ -1,12 +1,8 @@
 import NavBar from './NavBar';
 import Welcome from './Welcome';
 import Footer from './Footer';
-import Fantasy from './Fantasy';
 import { Container } from 'react-bootstrap';
-import History from './History';
-import Horror from './Horror';
-import Romance from './Romance';
-import Scifi from './Scifi';
+import AllTheBooks from './AllTheBooks';
 
 function App() {
   return (
@@ -14,13 +10,9 @@ function App() {
     <NavBar/>
     <Welcome/>
     <Container>
-      <h2 className='mt-5'> Latest Releases </h2>
+      <h3 className='mt-5'> All The Books </h3>
       <hr/>
-      <Fantasy/>
-      <History/>
-      <Horror/>
-      <Romance/>
-      <Scifi/>
+      <AllTheBooks/>
     </Container>
     <Footer/>
       </>
