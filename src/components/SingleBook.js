@@ -8,7 +8,7 @@ const SingleBook = ({ book }) => {
             onClick={() => setSelected(!selected)}
             style={{
               width: '18rem',
-              border: selected ? '3px solid red' : 'none',
+              outline: selected ? '3px solid red' : '3px solid transparent',
             }}
           >
             <Image

@@ -1,8 +1,8 @@
-import NavBar from './NavBar';
-import Welcome from './Welcome';
-import Footer from './Footer';
+import NavBar from './components/NavBar';
+import Welcome from './components/Welcome';
+import Footer from './components/Footer';
 import { Container } from 'react-bootstrap';
-import AllTheBooks from './AllTheBooks';
+import AllTheBooks from './components/AllTheBooks';
 
 function App() {
   return (
