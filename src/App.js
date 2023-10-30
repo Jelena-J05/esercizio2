@@ -3,7 +3,6 @@ import Welcome from './components/Welcome';
 import Footer from './components/Footer';
 import { Container } from 'react-bootstrap';
 import AllTheBooks from './components/AllTheBooks';
-
 function App() {
   return (
     <>

@@ -1,37 +1,43 @@
 import { Card, Image, Container, Form, Row, Tab, Tabs } from "react-bootstrap";
+import React, { useState } from "react";
 import fantasy from "../data/fantasy.json";
 import history from "../data/history.json";
 import horror from "../data/horror.json";
 import romance from "../data/romance.json";
-import scifi from "../data/scifi.json";
-
-import { useState } from "react";
+import scifi from "../data/scifi.json"
+import CommentArea from "./CommentArea";
 
 function SingleBook({ book }) {
+
   const [selected, setSelected] = useState(false);
 
   return (
+    <>
     <Card
-        onClick={() => setSelected(!selected)}
+      onClick={() => {
+        setSelected(!selected);
+      }}
+      style={{
+        width: '18rem',
+        outline: selected ? '3px solid red' : '3px solid transparent',
+      }}
+    >
+      <Image
+        src={book.img}
+        className="pt-2"
         style={{
-          width: '18rem',
-          outline: selected ? '3px solid red' : '3px solid transparent',
+          height: "350px",
+          variant: "top",
         }}
-      >
-        <Image
-          src={book.img}
-          className="pt-2"
-          style={{
-            height:"350px",
-            variant: "top",
-          }}
-        />
-        <Card.Body>
-          <h6 className="text-truncate">{book.title}</h6>
-          <span className="badge rounded-pill text-bg-primary">€ {book.price}</span>
-        </Card.Body>
-      </Card>
-);
+      />
+      <Card.Body>
+        <h6 className="text-truncate">{book.title}</h6>
+        <span className="badge rounded-pill text-bg-primary">€ {book.price}</span>
+      </Card.Body>
+    </Card>
+    {selected && <CommentArea asin={book.asin} />}
+    </>
+  )
 };
 
 const BooksByGenre = {
@@ -46,10 +52,12 @@ export default function AllTheBooks() {
   const [query, setQuery] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("fantasy");
 
+
   const books = BooksByGenre[selectedGenre];
 
   const booksByQuery = (book) =>
     book.title.toLowerCase().includes(query.toLowerCase());
+
 
   return (
     <Container>
@@ -61,9 +69,9 @@ export default function AllTheBooks() {
         onSelect={(genre) => setSelectedGenre(genre)}
       >
         {Object.keys(BooksByGenre).map((genre) => (
-          <Tab 
-          eventKey={genre} 
-          title={<span className="text-secondary fw-bold">{genre.toUpperCase()}</span>}
+          <Tab
+            eventKey={genre}
+            title={<span className="text-secondary fw-bold">{genre.toUpperCase()}</span>}
           />
         ))}
       </Tabs>
