@@ -63,7 +63,7 @@ export default function AllTheBooks() {
         {Object.keys(BooksByGenre).map((genre) => (
           <Tab 
           eventKey={genre} 
-          title={<span style={{ color: ' #663366' }}>{genre.toUpperCase()}</span>}
+          title={<span className="text-secondary fw-bold">{genre.toUpperCase()}</span>}
           />
         ))}
       </Tabs>
