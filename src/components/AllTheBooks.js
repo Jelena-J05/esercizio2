@@ -1,4 +1,4 @@
-import { Card, Image, Container, Form, Row, Tab, Tabs } from "react-bootstrap";
+import { Card, Image, Container, Row, Tab, Tabs } from "react-bootstrap";
 import React, { useState } from "react";
 import fantasy from "../data/fantasy.json";
 import history from "../data/history.json";
@@ -6,6 +6,9 @@ import horror from "../data/horror.json";
 import romance from "../data/romance.json";
 import scifi from "../data/scifi.json"
 import CommentArea from "./CommentArea";
+import ThemeContext from "../contexts/theme";
+import { useContext } from 'react';
+
 
 function SingleBook({ book }) {
 
@@ -48,9 +51,9 @@ const BooksByGenre = {
   scifi,
 };
 
-export default function AllTheBooks() {
-  const [query, setQuery] = useState("");
-  const [selectedGenre, setSelectedGenre] = useState("fantasy");
+ const AllTheBooks = ({query }) => {
+  const { theme} = useContext(ThemeContext);
+const [selectedGenre, setSelectedGenre] = useState("fantasy");
 
 
   const books = BooksByGenre[selectedGenre];
@@ -64,26 +67,19 @@ export default function AllTheBooks() {
       <Tabs
         defaultActiveKey="profile"
         id="justify-tab-example"
-        className="my-3"
+        className={theme==="light" ? "light my-5": "dark my-5"}
+        variant={theme}
         justify
         onSelect={(genre) => setSelectedGenre(genre)}
       >
         {Object.keys(BooksByGenre).map((genre) => (
           <Tab
             eventKey={genre}
-            title={<span className="text-secondary fw-bold">{genre.toUpperCase()}</span>}
+            title={<span  className={theme==="light" ? "light": "dark"}
+            >{genre.toUpperCase()}</span>}
           />
         ))}
       </Tabs>
-      <Form.Group className="py-4 my-5">
-        <Form.Control
-          type="text"
-          placeholder="Search for a book"
-          className="text-center"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-      </Form.Group>
       <Row className="row-gap-5 column-gap-5">
         {books.filter(booksByQuery).map((book) => (
           <SingleBook book={book} key={book.asin} />
@@ -92,5 +88,6 @@ export default function AllTheBooks() {
     </Container>
   );
 }
+export default AllTheBooks
 
 
