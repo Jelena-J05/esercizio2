@@ -1,7 +1,31 @@
-import { Spinner } from 'react-bootstrap'
+import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 
-const Loading = () => (
-  <Spinner animation="border" variant="success" className="mt-2" />
-)
+function SpinnerButton () {
+  return (
+    <>
+      <Button variant="dark" disabled>
+        <Spinner
+          as="span"
+          animation="border"
+          size="sm"
+          role="status"
+          aria-hidden="true"
+        />
+        <span className="visually-hidden">Loading...</span>
+      </Button>{' '}
+      <Button variant="dark" disabled>
+        <Spinner
+          as="span"
+          animation="grow"
+          size="sm"
+          role="status"
+          aria-hidden="true"
+        />
+        Loading...
+      </Button>
+    </>
+  );
+}
 
-export default Loading
+export default SpinnerButton;

@@ -1,19 +1,31 @@
 import { useEffect, useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
+import { ArrowUpRightSquareFill} from 'react-bootstrap-icons'
+import { Rating } from 'react-simple-star-rating'
 
 const AddComment = ({ asin }) => {
   const [comment, setComment] = useState({
     comment: '',
-    rate: 1,
+    rate: 0,
     elementId: null,
   })
 
+
+  const [commentSent, setCommentSent] = useState(false); 
+  
   useEffect(() => {
     setComment((c) => ({
       ...c,
       elementId: asin,
     }))
   }, [asin])
+
+  const handleRating = (rate) => {
+    setComment({
+      ...comment,
+      rate: rate,
+    }); 
+    };
 
   const sendComment = async (e) => {
     e.preventDefault()
@@ -25,19 +37,21 @@ const AddComment = ({ asin }) => {
           body: JSON.stringify(comment),
           headers: {
             'Content-type': 'application/json',
-            Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTNmYTEzOGIzOTczNDAwMTRkNWU3ZmQiLCJpYXQiOjE2OTg2Njg4NTYsImV4cCI6MTY5OTg3ODQs1Nn0.IAoR55f8qCiVkFlMf0Ke8_SRlfERpC3ZVDidqMMP5WQ",
+            Authorization:"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTM4Mjg0ODc3Y2RhYTAwMTQ2ZGYzOTQiLCJpYXQiOjE2OTk5OTI5OTIsImV4cCI6MTcwMTIwMjU5Mn0.PBxtLZQbrMCXAg8EtZmKNb4eMKdBfYE7vytUnFNcroo",
           },
         }
       )
       if (response.ok) {
         alert('Comment has been sent!')
+        setCommentSent(true); 
         setComment({
           comment: '',
-          rate: 1,
+          rate: 0,
           elementId: null,
         })
-      } else {
-        throw new Error('There is an error.')
+    
+        } else {
+        throw new Error ('Please check again details you put.')
       }
     } catch (error) {
       alert(error)
@@ -62,31 +76,24 @@ const AddComment = ({ asin }) => {
             }
           />
         </Form.Group>
-        <Form.Group className="mb-2">
+        <Form.Group>
           <Form.Label> Rating </Form.Label>
-          <Form.Control
-            as="select"
-            value={comment.rate}
-            onChange={(e) =>
-              setComment({
-                ...comment,
-                rate: e.target.value,
-              })
-            }
-          >
-            <option className='text-center'>1</option>
-            <option className='text-center'>2</option>
-            <option className='text-center'>3</option>
-            <option className='text-center'>4</option>
-            <option className='text-center'>5</option>
-          </Form.Control>
+          <section className='d-flex justify-content-center align-items-center gap-2'>
+            <Rating
+              onClick={handleRating}
+              ratingValue={comment.rate}
+              emptyColor={commentSent ? 'gray' : 'gray'} 
+              activeColor={commentSent ? 'gray' : 'gray'} 
+            />
+            {comment.rate}
+          </section>
         </Form.Group>
-        <Button variant="primary" type="submit">
-          Send
+        <Button variant="success" type="submit" className="mt-3">
+          Send <ArrowUpRightSquareFill className="ms-2" />
         </Button>
       </Form>
     </div>
-  )
-}
+  );
+};
 
-export default AddComment
+export default AddComment;

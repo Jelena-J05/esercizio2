@@ -6,7 +6,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import logo from '../logo-book.png';
 import { Form } from 'react-bootstrap';
 import { Col } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom'
+import { BrightnessHighFill, MoonStarsFill } from 'react-bootstrap-icons';
 
 const NavBar = ({ query, setQuery}) => {
   const { theme, setTheme } = useContext(ThemeContext);
@@ -28,9 +29,15 @@ const NavBar = ({ query, setQuery}) => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#">Home</Nav.Link>
-            <Nav.Link href="#">About</Nav.Link>
-            <Nav.Link href="#">Browse</Nav.Link>
+          <Link to="/" className="text-decoration-none">
+              <div className="nav-link">Home</div>
+            </Link>
+            <Link to="/about" className="text-decoration-none">
+              <div className="nav-link">About</div>
+            </Link>
+            <Link to="/browse" className="text-decoration-none">
+              <div className="nav-link">Browse</div>
+            </Link>
             </Nav>
         </Navbar.Collapse>
         <Col md={3}>
@@ -44,8 +51,8 @@ const NavBar = ({ query, setQuery}) => {
               />
             </Form.Group>
             </Col>
-            <button className={theme==="light" ? "light ms-5 border border-none px-4 py-1 rounded-1": "dark ms-5 border border-none px-4 py-1 rounded-1"} onClick= {()=> setTheme (theme==="light" ? "dark": "light")} >
-              {theme}
+            <button className={theme==="light" ? "light ms-5 border border-secondary rounded-pill py-2 px-3": "dark ms-5 border border-secondary rounded-pill py-2 px-3"} onClick= {()=> setTheme (theme==="light" ? "dark": "light")} >
+            {theme === "light" ? <BrightnessHighFill className="fs-4"/> : <MoonStarsFill className="fs-5"/>}
             </button>
       </Container>
     </Navbar>
